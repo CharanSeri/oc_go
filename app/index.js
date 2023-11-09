@@ -1,6 +1,7 @@
 import { Link } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import { View, Text, StyleSheet, Pressable, Button } from "react-native"
+import { MaterialIcons } from "@expo/vector-icons"
 
 export default function HomePage() {
   return (
@@ -8,12 +9,14 @@ export default function HomePage() {
       <Text style={styles.title}>Select from below options</Text>
       <Link href="/getAllRoutes" style={{ marginVertical: 10 }} asChild>
         <Pressable style={styles.linkStyle}>
-          <Text style={styles.linkText}>Find Routes</Text>
+          <Text style={styles.linkText}>Lookup Routes at BusStop</Text>
+          <MaterialIcons name="chevron-right" size={22} style={{ color: "#fff" }} />
         </Pressable>
       </Link>
       <Link href="/getNextThreeRoutesSummary" style={styles.linkStyle} asChild>
-        <Pressable>
-          <Text style={styles.linkText}> Route details</Text>
+        <Pressable style={styles.linkStyle}>
+          <Text style={styles.linkText}>Lookup upcoming routes at Bustop</Text>
+          <MaterialIcons name="chevron-right" size={22} style={{color:"#fff"}} />
         </Pressable>
       </Link>
       <StatusBar style="light" />
@@ -45,15 +48,20 @@ const styles = StyleSheet.create({
   },
   linkStyle: {
     marginVertical: 10,
-    width: "100%",
+    width: "70%",
     padding: 15,
     borderCurve: 20,
     backgroundColor: "#20232a",
-    borderRadius: ".5rem"
+    borderRadius: ".5rem",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent:"space-between"
   },
   linkText: {
     color: "#fff",
     textAlign: 'center',
+    fontSize: 12
   }
 });
 

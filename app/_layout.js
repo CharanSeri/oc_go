@@ -24,6 +24,10 @@ export default function _layout() {
                 <Stack.Screen name="getNextThreeRoutesSummary" options={{
                     title: "Routes Summary"
                 }} />
+                <Stack.Screen name="getNextThreeTripsForStopNumberAndRouteNo" options={{
+                    title: "Next Trips",
+                    presentation: 'modal'
+                }} />
                 <Stack.Screen name="[missing]" options={{
                     title: "Error : 404!"
                 }}
