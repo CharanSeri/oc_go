@@ -40,15 +40,19 @@ export default function GetNextThreeRoutesSummary() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.headerText}>Enter StopNumber for all route details</Text>
+
+            <Text style={styles.headerText}>Enter StopNumber</Text>
+
             <TextInput
                 style={styles.inputStyle}
                 placeholder="e.g. 3034"
                 onChangeText={newText => setStopLookUp(newText)}
             />
+
             <Pressable style={styles.lookUpBtn} onPress={getStopRoutesDetail}>
-                <Text>Lookup</Text>
+                <Text style={styles.lookUpBtnText}>search</Text>
             </Pressable>
+
             <ListUpComingRoutesForStop routesInfo={routesData} />
         </View>
 
@@ -56,26 +60,13 @@ export default function GetNextThreeRoutesSummary() {
 }
 
 const styles = StyleSheet.create({
-    inputStyle: {
-        borderWidth: 1,
-        borderColor: '#20232a',
-        borderRadius: 6,
-        backgroundColor: '#fff',
-        color: '#20232a',
-        textAlign: 'center',
-        fontSize: 20,
-        fontWeight: 100,
-        width: "50%",
-        padding: 10,
-        marginVertical: 15
-    },
     container: {
         flex: 1,
         alignItems: "center",
     },
     headerText: {
-        fontSize: 24,
-        fontWeight: 200,
+        fontSize: 18,
+        fontWeight: "200",
         marginVertical: 5
     },
     lookUpBtn: {
@@ -85,10 +76,25 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         color: '#20232a',
         textAlign: 'center',
-        fontSize: 20,
-        fontWeight: 100,
         paddingVertical: 5,
         paddingHorizontal: 10,
         marginBottom: 5
-    }
+    },
+    lookUpBtnText: {
+        fontSize: 12,
+        fontWeight: 200,
+    },
+    inputStyle: {
+        borderWidth: 1,
+        borderColor: '#20232a',
+        borderRadius: 6,
+        backgroundColor: '#fff',
+        color: '#20232a',
+        textAlign: 'center',
+        fontSize: 12,
+        fontWeight: "100",
+        width: "25%",
+        padding: 8,
+        marginVertical: 15
+    },
 })

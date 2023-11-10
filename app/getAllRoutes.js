@@ -6,13 +6,13 @@ import StopNumberRoutesDetails from "./components/stopNumberRoutesDetails"
 
 export default function GetAllRoutes() {
 
+  let { BASE_URL, ROUTE_SUMMARY_FOR_STOP, ...other } = useKeyTokenData()
+
   const [stopNumberSearchResult, setStopNumberSearchResult] = useState(null);
-  
+
   const [text, setText] = useState('');
 
   let busStopNumberSearch = useRef(null)
-
-  let { BASE_URL, ROUTE_SUMMARY_FOR_STOP, ...other } = useKeyTokenData()
 
   const busStopNumberInputUpdate = async () => {
 
@@ -34,10 +34,11 @@ export default function GetAllRoutes() {
   }
 
   return (
-    <View style={styles.lookUpLayout}>
+    <View style={styles.container}>
+      <Text style={styles.headerText}>Enter StopNumber</Text>
       <TextInput
         ref={busStopNumberSearch}
-        style={styles.input}
+        style={styles.inputStyle}
         onChangeText={(val) => setText(val)}
         value={text}
         inputMode="numeric"
@@ -45,7 +46,7 @@ export default function GetAllRoutes() {
         keyboardType="numeric"
       />
       <Pressable onPress={busStopNumberInputUpdate} style={styles.lookUpBtn}>
-        <Text>Lookup</Text>
+        <Text style={styles.lookUpBtnText}>Lookup</Text>
       </Pressable>
       <StopNumberRoutesDetails stopNumberDetails={stopNumberSearchResult} />
     </View>
@@ -53,25 +54,41 @@ export default function GetAllRoutes() {
 }
 
 const styles = StyleSheet.create({
-  lookUpLayout: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "200",
+    marginVertical: 5
   },
   lookUpBtn: {
-    padding: 4,
+    borderWidth: 1,
+    borderColor: '#20232a',
+    borderRadius: 2,
+    backgroundColor: '#fff',
+    color: '#20232a',
+    textAlign: 'center',
+    paddingVertical: 5,
     paddingHorizontal: 10,
+    marginBottom: 5
+  },
+  lookUpBtnText: {
+    fontSize: 12,
+    fontWeight: 200,
+  },
+  inputStyle: {
     borderWidth: 1,
     borderColor: '#20232a',
     borderRadius: 6,
-    backgroundColor: '#61dafb',
+    backgroundColor: '#fff',
     color: '#20232a',
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    width: "30%"
+    textAlign: 'center',
+    fontSize: 12,
+    fontWeight: "100",
+    width: "25%",
+    padding: 8,
+    marginVertical: 15
   },
 });

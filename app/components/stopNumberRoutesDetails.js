@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         borderWidth: 2,
         textAlign: "center",
-        padding: 5,
+        padding:5,
         marginVertical: 10
     },
     routeDetails: {

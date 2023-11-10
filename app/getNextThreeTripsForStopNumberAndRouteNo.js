@@ -41,11 +41,8 @@ export default function GetNextThreeTripsForStopNoAndRouteNo() {
                 tripDetail !== null ? (
                     <NextTripsDetailsForStopNumberUsingRouteNo tripDetails={tripDetail} />
                 ) : (
-                    <Text>
-                        <ActivityIndicator />
-                    </Text>
+                    <ActivityIndicator />
                 )
-
             }
         </View>
     )

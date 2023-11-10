@@ -110,7 +110,7 @@ export default function NextTripsDetailsForStopNumberUsingRouteNo({ tripDetails 
 
 const styles = StyleSheet.create({
     headerContainer: {
-        flex: 1,
+        flex: "1",
         flexDirection: 'row',
         flexWrap: 'wrap',
     }
