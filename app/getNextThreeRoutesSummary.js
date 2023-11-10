@@ -46,6 +46,8 @@ export default function GetNextThreeRoutesSummary() {
             <TextInput
                 style={styles.inputStyle}
                 placeholder="e.g. 3034"
+                inputMode="numeric"
+                keyboardType='numeric'
                 onChangeText={newText => setStopLookUp(newText)}
             />
 
@@ -61,12 +63,12 @@ export default function GetNextThreeRoutesSummary() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        display: "flex",
         alignItems: "center",
     },
     headerText: {
-        fontSize: 18,
-        fontWeight: "200",
+        fontSize: 20,
+        fontWeight: "light",
         marginVertical: 5
     },
     lookUpBtn: {
@@ -82,7 +84,7 @@ const styles = StyleSheet.create({
     },
     lookUpBtnText: {
         fontSize: 12,
-        fontWeight: 200,
+        fontWeight: "light",
     },
     inputStyle: {
         borderWidth: 1,
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
         color: '#20232a',
         textAlign: 'center',
         fontSize: 12,
-        fontWeight: "100",
+        fontWeight: "light",
         width: "25%",
         padding: 8,
         marginVertical: 15

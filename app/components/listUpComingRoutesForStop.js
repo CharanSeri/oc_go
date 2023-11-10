@@ -1,6 +1,6 @@
 import { Text, View, SectionList, StyleSheet, SafeAreaView } from "react-native"
 
-function BodySection(item) {
+ function BodySection(item) {
     return (
         <View style={styles.bodySectionList}>
             <Text style={styles.bodySectionListItem}>{item.item.TripDestination}</Text>
@@ -31,7 +31,7 @@ export default function ListUpComingRoutesForStop({ routesInfo }) {
 
 const styles = StyleSheet.create({
     listHeader: {
-        fontWeight: "300",
+        fontWeight: "bold",
         borderWidth: 1,
         borderColor: '#20232a',
         borderRadius: 4,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     },
     bodySectionListItem: {
         padding: 2,
-        fontWeight: "300",
+        fontWeight: "bold",
     },
     bodySectionList: {
         flex: 1,

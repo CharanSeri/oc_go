@@ -4,10 +4,6 @@ import { Link } from "expo-router"
 
 export default function StopNumberRoutesDetails({ stopNumberDetails }) {
 
-    if (stopNumberDetails !== null) {
-        console.log(stopNumberDetails.GetRouteSummaryForStopResult)
-    }
-
     const Item = ({ route }) => (
         <Link href={{
             pathname: "/getNextThreeTripsForStopNumberAndRouteNo",
@@ -17,17 +13,13 @@ export default function StopNumberRoutesDetails({ stopNumberDetails }) {
                 routeHeaded: route.RouteHeading
             }
         }}
-            style={{ marginVertical: 10 }} asChild>
+            asChild style={styles.shadowProp}>
             <Pressable style={styles.routeDetails}>
                 <View>
-                    <Text style={{
-                        color: "#fff",
-                    }}>{route.RouteHeading}</Text>
-                    <Text style={{
-                        color: "#fff",
-                    }}>{route.RouteNo}</Text>
+                    <Text>{route.RouteHeading}</Text>
+                    <Text>{route.RouteNo}</Text>
                 </View>
-                <MaterialIcons name="chevron-right" size={20} style={{ color: "#fff" }} />
+                <MaterialIcons name="chevron-right" size={20} />
             </Pressable>
         </Link>
     );
@@ -37,8 +29,8 @@ export default function StopNumberRoutesDetails({ stopNumberDetails }) {
             {stopNumberDetails &&
                 <View>
                     <View style={styles.stopViewHeader}>
-                        <Text style={{ textAlign: "center" }}>{stopNumberDetails.GetRouteSummaryForStopResult.StopDescription}</Text>
-                        <Text style={{ textAlign: "center" }}>{stopNumberDetails.GetRouteSummaryForStopResult.StopNo} </Text>
+                        <Text>{stopNumberDetails.GetRouteSummaryForStopResult.StopDescription}</Text>
+                        <Text>{stopNumberDetails.GetRouteSummaryForStopResult.StopNo} </Text>
                     </View>
                     <FlatList
                         data={stopNumberDetails.GetRouteSummaryForStopResult.Routes.Route}
@@ -54,17 +46,31 @@ export default function StopNumberRoutesDetails({ stopNumberDetails }) {
 const styles = StyleSheet.create({
     stopViewHeader: {
         display: "flex",
-        flexDirection: "column",
-        borderWidth: 2,
-        textAlign: "center",
-        padding:5,
-        marginVertical: 10
+        flexDirection: "row",
+        justifyContent: "space-around",
+        borderWidth: 1,
+        padding: 5,
+        marginVertical: 10,
+        backgroundColor:"#fff"
     },
     routeDetails: {
-        backgroundColor: "grey",
+        display: "flex",
+        flexDirection: "row",
+        alignContent: "center",
+        alignItems: "center",
+        justifyContent: "space-between",
         borderColor: "black",
-        borderWidth: 2,
+        borderWidth: 1,
         padding: 2,
-        marginVertical: 2
-    }
+        marginVertical: 2,
+    },
+    routeDetailsInfo: {
+        fontWeight: "light"
+    },
+    shadowProp: {
+        shadowColor: '#171717',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+    },
 })

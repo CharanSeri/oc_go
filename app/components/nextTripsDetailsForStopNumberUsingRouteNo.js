@@ -1,117 +1,65 @@
-import { View, Text, StyleSheet, SectionList, SafeAreaViewView, FlatList } from "react-native";
-import { useLocalSearchParams } from 'expo-router';
-
+import { View, Text, StyleSheet, SectionList, SafeAreaView, FlatList } from "react-native";
+import { useEffect, useState } from "react";
+import { OneWayRoutesForStop, TwoWayRoutesForStop } from "./displayRoutesForStopNo"
 
 export default function NextTripsDetailsForStopNumberUsingRouteNo({ tripDetails }) {
+
     let routes = tripDetails.GetNextTripsForStopResult.Route.RouteDirection
-    if (routes.Trips !== undefined) {
-        console.log("One way routes -->", routes.Trips)
-        if (routes.Trips.Trip.length == 0) {
-            console.log(routes.Trips.Trip)
-        }
-        else {
-            console.log(routes)
-        }
-    }
-    else if (routes.RouteNo == "") {
-        console.log("No routes")
-    }
-    else {
-        console.log("Two way routes -->")
-        routes.forEach(element => {
-            console.log(element)
-        });
-    }
 
-    let RenderRoutTimes = ({ data }) => (
-        <View>
-            <FlatList
-                data={data}
-                renderItem={({ item }) => (
-                    <View >
-                        <Text>{item.TripStartTime}</Text>
-                    </View>
-                )}
-            />
-        </View>
-    )
+    const [oneWayRoutes, setOneWayRoutes] = useState([])
+    const [twoWayRoutes, setTwoWayRoutes] = useState([])
 
+    useEffect(() => {
+        function updateRoutes(routes) {
+            if (routes.Trips !== undefined) {
+                if (routes.Trips.Trip.length !== undefined) {
+                    console.log("We found one way routes -->", routes.Trips)
+                    setOneWayRoutes(routes.Trips)
+                }
+                else {
+                    console.log("We Found no routes length -->", routes.Trips)
+                }
+            } else if (routes.length !== undefined) {
+                console.log("We Found two way routes -->", routes)
+                setTwoWayRoutes(routes)
+            } else {
+                console.log("We Found no routes -->", routes)
+            }
+        }
+        updateRoutes(routes)
+    }, [])
 
     return (
-        <View>
-            <View style={styles.headerContainer}>
-                <Text>{tripDetails.GetNextTripsForStopResult.StopNo}</Text>
-                <Text>{tripDetails.GetNextTripsForStopResult.StopLabel}</Text>
+        <View style={styles.container}>
+            <View style={styles.headerTextContainer}>
+                <Text style={styles.headerText}>{tripDetails.GetNextTripsForStopResult.StopNo}</Text>
+                <Text style={styles.headerText}>{tripDetails.GetNextTripsForStopResult.StopLabel}</Text>
             </View>
-            {
-                routes.RouteNo == ""
-                    ?
-                    <Text> There are no upcomeing Buses</Text>
-                    :
-                    <View>
-                        <Text>Looking Up</Text>
-                        {/* <FlatList
-                            data={routes}
-                            renderItem={({ item }) => (
-                                <View >
-                                    <Text>{item.RouteNo + "" + item.RouteLabel}</Text>
-                                    <RenderRoutTimes data={item.Trips.Trip} />
-                                </View>
-                            )} /> */}
-                    </View>
-            }
-
-            {/* {
-                routes != undefined ?
-                    <SectionList
-                        sections={routes}
-                        renderItem={({ item }) => <Text>{item}</Text>}
-                    /> 
-                    :
-                    <Text>No routes</Text>
-            } */}
-            {/* <SectionList
-                sections={routes}
-                renderItem={({ item }) => <Text>{item}</Text>}
-            /> */}
-            {/* {
-                'Trips' in tripDetails.GetNextTripsForStopResult.Route.RouteDirection ?
-                    <SectionList
-                        sections={tripDetails.GetNextTripsForStopResult.Route.RouteDirection}
-                        keyExtractor={(item, index) => item + index}
-                        renderItem={({ item }) => (
-                            <View>
-                                <Text>{item.RouteLabel + item.RouteNo}</Text>
-                            </View>
-                        )}
-                        renderSectionHeader={({ section: { RouteLabel } }) => (
-                            <Text >{RouteLabel}</Text>
-                        )}
-                    />
-                    :
-                    <Text>No Trip details to be found</Text>
-            } */}
-            {/* <SectionList
-                sections={tripDetails.GetNextTripsForStopResult.Route.RouteDirection.Trips.Trip}
-                keyExtractor={(item, index) => item + index}
-                renderItem={({ item }) => (
-                    <View >
-                        <Text >{item}</Text>
-                    </View>
-                )}
-                renderSectionHeader={({ section: { TripDestination } }) => (
-                    <Text >{TripDestination}</Text>
-                )}
-            /> */}
+            <OneWayRoutesForStop routeDetails={oneWayRoutes} routeNo={routes.RouteNo} />
+            <TwoWayRoutesForStop routeDetails={twoWayRoutes} />
         </View>
-
     )
 }
 
 const styles = StyleSheet.create({
-    headerContainer: {
-        flex: "1",
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+    container: {
+        display: "flex",
+        alignItems: "center",
+    },
+    headerTextContainer: {
+        display: "flex",
+        flexDirection: "row",
+        borderWidth: 1,
+        fontWeight: "light",
+        justifyContent: "space-around",
+        marginVertical: 10,
+        backgroundColor: "#fff",
+        width: "50%",
+    },
+    headerText: {
+        fontWeight: "bold",
+        padding: 5,
+        fontSize: 20,
     }
+
 })

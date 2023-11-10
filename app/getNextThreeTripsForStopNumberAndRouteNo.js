@@ -16,6 +16,7 @@ export default function GetNextThreeTripsForStopNoAndRouteNo() {
 
     useEffect(() => {
         async function fetchTripDetail() {
+            
             const URL = BASE_URL + GET_NEXT_TRIPS_FOR_STOP + `stopNo=${stopNumber}&routeNo=${routeNumber}&format=json`
 
             await axios.get(URL)

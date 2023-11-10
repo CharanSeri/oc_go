@@ -1,7 +1,7 @@
 import { View, TextInput, StyleSheet, Pressable, Text } from "react-native"
 import { useKeyTokenData } from "./context/appKeyTokenData"
 import axios from 'axios';
-import { useRef, useState } from "react";
+import { useState } from "react";
 import StopNumberRoutesDetails from "./components/stopNumberRoutesDetails"
 
 export default function GetAllRoutes() {
@@ -12,41 +12,31 @@ export default function GetAllRoutes() {
 
   const [text, setText] = useState('');
 
-  let busStopNumberSearch = useRef(null)
-
   const busStopNumberInputUpdate = async () => {
 
     const URL = BASE_URL + ROUTE_SUMMARY_FOR_STOP + `stopNo=${text}&format=json`
 
     await axios.get(URL)
       .then(function (response) {
-        // handle success
-        console.log(response.data);
         setStopNumberSearchResult(response.data)
       })
       .catch(function (error) {
-        // handle error
         console.log(error);
       })
-      .finally(function () {
-        // always executed
-      });
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Enter StopNumber</Text>
       <TextInput
-        ref={busStopNumberSearch}
         style={styles.inputStyle}
         onChangeText={(val) => setText(val)}
-        value={text}
         inputMode="numeric"
         placeholder="e.g. 3050"
         keyboardType="numeric"
       />
       <Pressable onPress={busStopNumberInputUpdate} style={styles.lookUpBtn}>
-        <Text style={styles.lookUpBtnText}>Lookup</Text>
+        <Text style={styles.lookUpBtnText}>search</Text>
       </Pressable>
       <StopNumberRoutesDetails stopNumberDetails={stopNumberSearchResult} />
     </View>
@@ -60,7 +50,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 18,
-    fontWeight: "200",
+    fontWeight: "light",
     marginVertical: 5
   },
   lookUpBtn: {
@@ -76,7 +66,7 @@ const styles = StyleSheet.create({
   },
   lookUpBtnText: {
     fontSize: 12,
-    fontWeight: 200,
+    fontWeight: "light",
   },
   inputStyle: {
     borderWidth: 1,
@@ -86,7 +76,7 @@ const styles = StyleSheet.create({
     color: '#20232a',
     textAlign: 'center',
     fontSize: 12,
-    fontWeight: "100",
+    fontWeight: "bold",
     width: "25%",
     padding: 8,
     marginVertical: 15
