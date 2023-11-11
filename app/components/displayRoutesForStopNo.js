@@ -12,6 +12,21 @@ function ListItem(item) {
     )
 }
 
+function OneRouteOneWay(trip) {
+    return (
+        <View>
+            {
+                trip.trip.TripDestination !== undefined &&
+                <View style={styles.listItem} >
+                    <Text style={styles.listItemText}>{trip.routeNo}</Text>
+                    <Text style={styles.listItemText}>{trip.trip.TripDestination}</Text>
+                    <Text style={styles.listItemText}>{trip.trip.TripStartTime}</Text>
+                </View>
+            }
+        </View>
+    )
+}
+
 function OneWayRoutesForStop({ routeDetails, routeNo }) {
     return (
         <SafeAreaView style={styles.container}>
@@ -77,7 +92,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignContent: "center",
-        alignItems:"center",
+        alignItems: "center",
         justifyContent: "space-around",
         borderWidth: 1,
         borderColor: '#20232a',
@@ -115,4 +130,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export { OneWayRoutesForStop, TwoWayRoutesForStop }
+export { OneWayRoutesForStop, TwoWayRoutesForStop, OneRouteOneWay }

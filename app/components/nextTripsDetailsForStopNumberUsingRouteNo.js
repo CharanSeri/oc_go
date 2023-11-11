@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, SectionList, SafeAreaView, FlatList } from "react-native";
 import { useEffect, useState } from "react";
-import { OneWayRoutesForStop, TwoWayRoutesForStop } from "./displayRoutesForStopNo"
+import { OneWayRoutesForStop, TwoWayRoutesForStop, OneRouteOneWay } from "./displayRoutesForStopNo"
 
 export default function NextTripsDetailsForStopNumberUsingRouteNo({ tripDetails }) {
 
@@ -8,6 +8,7 @@ export default function NextTripsDetailsForStopNumberUsingRouteNo({ tripDetails 
 
     const [oneWayRoutes, setOneWayRoutes] = useState([])
     const [twoWayRoutes, setTwoWayRoutes] = useState([])
+    const [oneWayOneRoute, setOneWayOneRoute] = useState({})
 
     useEffect(() => {
         function updateRoutes(routes) {
@@ -16,8 +17,12 @@ export default function NextTripsDetailsForStopNumberUsingRouteNo({ tripDetails 
                     console.log("We found one way routes -->", routes.Trips)
                     setOneWayRoutes(routes.Trips)
                 }
+                else if (routes.Trips.Trip.TripStartTime !== undefined) {
+                    console.log("We found one way routes one route -->", routes.Trips.Trip)
+                    setOneWayOneRoute(routes.Trips.Trip)
+                }
                 else {
-                    console.log("We Found no routes length -->", routes.Trips)
+                    console.log("We Found no routes -->", routes.Trips)
                 }
             } else if (routes.length !== undefined) {
                 console.log("We Found two way routes -->", routes)
@@ -37,6 +42,7 @@ export default function NextTripsDetailsForStopNumberUsingRouteNo({ tripDetails 
             </View>
             <OneWayRoutesForStop routeDetails={oneWayRoutes} routeNo={routes.RouteNo} />
             <TwoWayRoutesForStop routeDetails={twoWayRoutes} />
+            <OneRouteOneWay trip={oneWayOneRoute} routeNo={routes.RouteNo} />
         </View>
     )
 }
@@ -54,7 +60,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         marginVertical: 10,
         backgroundColor: "#fff",
-        width: "50%",
+        minWidth: "50%",
     },
     headerText: {
         fontWeight: "bold",
